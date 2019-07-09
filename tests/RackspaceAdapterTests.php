@@ -7,12 +7,12 @@ class RackspaceTests extends PHPUnit_Framework_TestCase
 {
     public function getContainerMock()
     {
-        return Mockery::mock('OpenCloud\ObjectStore\Resource\Container');
+        return Mockery::mock('OpenStack\ObjectStore\v1\Models\Container');
     }
 
     public function getDataObjectMock($filename)
     {
-        $mock = Mockery::mock('OpenCloud\ObjectStore\Resource\DataObject');
+        $mock = Mockery::mock('OpenStack\ObjectStore\v1\Models\StorageObject');
         $mock->shouldReceive('getName')->andReturn($filename);
         $mock->shouldReceive('getContentType')->andReturn('; plain/text');
         $mock->shouldReceive('getLastModified')->andReturn('2014-01-01');
@@ -120,7 +120,7 @@ class RackspaceTests extends PHPUnit_Framework_TestCase
     public function testUpdateFail()
     {
         $container = $this->getContainerMock();
-        $dataObject = Mockery::mock('OpenCloud\ObjectStore\Resource\DataObject');
+        $dataObject = Mockery::mock('OpenStack\ObjectStore\v1\Models\StorageObject');
         $dataObject->shouldReceive('getLastModified')->andReturn(false);
         $dataObject->shouldReceive('setContent');
         $dataObject->shouldReceive('setEtag');
@@ -224,7 +224,7 @@ class RackspaceTests extends PHPUnit_Framework_TestCase
     {
         $container = $this->getContainerMock();
         $container->shouldReceive('getName')->andReturn('container_name');
-        $dataObject = Mockery::mock('OpenCloud\ObjectStore\Resource\DataObject');
+        $dataObject = Mockery::mock('OpenStack\ObjectStore\v1\Models\StorageObject');
         $dataObject->shouldReceive('copy')->andReturn(Mockery::self());
         $dataObject->shouldReceive('getStatusCode')->andReturn($status);
         $container->shouldReceive('getObject')->andReturn($dataObject);
@@ -252,7 +252,7 @@ class RackspaceTests extends PHPUnit_Framework_TestCase
     {
         $container = $this->getContainerMock();
         $container->shouldReceive('getName')->andReturn('container_name');
-        $dataObject = Mockery::mock('OpenCloud\ObjectStore\Resource\DataObject');
+        $dataObject = Mockery::mock('OpenStack\ObjectStore\v1\Models\StorageObject');
         $dataObject->shouldReceive('getName')->andReturn('filename.ext');
         $container->shouldReceive('objectList')->andReturn([$dataObject]);
         $container->shouldReceive('getService')->andReturn($container);

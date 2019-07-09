@@ -9,8 +9,8 @@ use League\Flysystem\Adapter\Polyfill\NotSupportingVisibilityTrait;
 use League\Flysystem\Adapter\Polyfill\StreamedCopyTrait;
 use League\Flysystem\Config;
 use League\Flysystem\Util;
-use OpenCloud\ObjectStore\Resource\Container;
-use OpenCloud\ObjectStore\Resource\DataObject;
+use OpenStack\ObjectStore\v1\Models\Container;
+use OpenStack\ObjectStore\v1\Models\StorageObject;
 
 class RackspaceAdapter extends AbstractAdapter
 {
@@ -55,7 +55,7 @@ class RackspaceAdapter extends AbstractAdapter
      *
      * @param string $path
      *
-     * @return DataObject
+     * @return StorageObject
      */
     protected function getObject($path)
     {
@@ -69,7 +69,7 @@ class RackspaceAdapter extends AbstractAdapter
      *
      * @param string $path
      *
-     * @return DataObject
+     * @return StorageObject
      */
     protected function getPartialObject($path)
     {
@@ -268,7 +268,7 @@ class RackspaceAdapter extends AbstractAdapter
     /**
      * {@inheritdoc}
      */
-    protected function normalizeObject(DataObject $object)
+    protected function normalizeObject(StorageObject $object)
     {
         $name = $object->getName();
         $name = $this->removePathPrefix($name);
